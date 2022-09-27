@@ -2,6 +2,7 @@ package day15;
 
 import com.github.dockerjava.api.model.Driver;
 import org.apache.commons.io.FileUtils;
+import org.junit.Assert;
 import org.junit.Test;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -17,20 +18,25 @@ public class C04_GetScreenShot extends TestBaseBeforeAfter {
     @Test
     public void test1() throws IOException {
         //Amazon sayfasına gidelim tum sayfanın resmini alalim
-        driver.get("https://bestbuy.com");
+        driver.get("https://amazon.com");
         /*
         Bir web sayfanın resmini alabilmek için TakesScreenshot class'ın obje oluşturup
         Geçici bir File class'ından değişkene TakesScreenShot'dan oluşturduğum obje'den getScreenShotAs
         methonu kullanarak geçici bir file oluştururuz
-         */
-        LocalDateTime date = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYMMddHHmmss");
-        String tarih = date.format(formatter);
-        System.out.println("date : "+date);
-        System.out.println("tarih : "+tarih);
 
+        */
         TakesScreenshot ts = (TakesScreenshot) driver;
         File tumSayfaResmi = ts.getScreenshotAs(OutputType.FILE);
-        FileUtils.copyFile(tumSayfaResmi,new File("target/ekranGoruntusu/AllPage"+tarih+".jpeg"));
+
+
+        Assert.assertEquals(driver.getTitle(),"amz");
+        if (!driver.getTitle().contains("amz")){
+            FileUtils.copyFile(tumSayfaResmi,new File("target/ekranGoruntusu/AllPage"+tarih+".jpeg"));
+        }
+
+
+
+
+
     }
 }

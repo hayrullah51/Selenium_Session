@@ -1,4 +1,4 @@
-package practıse;
+package practice;
 
 public class FirstClass {
 
